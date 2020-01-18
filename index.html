@@ -1,108 +1,47 @@
-<link rel="stylesheet" type="text/css" href="style.css">
-<script src="jquery-3.3.1.min.js"></script>
-<script src="shortcut.js"></script>
-
-<div id="setting">
-	<br/>
-	<span>Kata awal:</span>
-	<input type="radio" name="word" id="indo" checked> Indonesia
-	<input type="radio" name="word" id="eng"> Inggris
-	<br/><br/>
-	<input type="checkbox" name="capital" id="capital" checked> Huruf Kapital<br>
-	<input type="checkbox" name="timer" id="timer" checked> Penghitung Waktu<br>
-	<br/>
-	<button><a href="edit.html">Lihat / Ubah Kata</a></button>
-	<button id="start">Mulai</button>
-</div>
-
-<div id="hasil">
-	<br/>
-	<p id="test"></p>
-	<div id="panel"></div>
-	<br id="footing"/>
-	<br/>
-	<button id="mean">Arti</button>
-	<button id="next">Selanjutnya</button>
-	<button id="end">Selesai</button>
-</div>
-
-<script type="text/javascript">
-function getData(){
-	if(localStorage.data === undefined || (!(localStorage.data.includes("&")) && localStorage.data.includes("undefined"))){return "";}
-	else if(localStorage.data.includes("&") && localStorage.data.includes("undefined")){return localStorage.getItem("data").replace("undefined","");}
-	else if(localStorage.data.includes("&") && !(localStorage.data.includes("undefined"))){return localStorage.data;}
-	else{return "";}
-}
-var coray = getData().split("|");
-function st(str){
-	if($('input#indo').is(':checked')){return str.split('&')[0];}
-	else{return str.split('&')[1];} 
-}
-function nd(str){
-	if($('input#indo').is(':checked')){return str.split('&')[1];}
-	else{return str.split('&')[0];} 
-}
-function next(){
-	var num = Math.floor((Math.random() * coray.length));
-	$("#test").html(num+1);
-	$("div#panel").html(toTitleCase(nd(coray[num])));
-	$("#myProgress,#progressBr").css("display","block");
-	if($('#myProgress').length == 0){
-		$("#progressBr").after('<div id="myProgress" style="display: block;"><div id="myBar"></div></div>');
-	}
-	$('div#myBar').on('animationend webkitAnimationEnd oAnimationEnd oanimationend MSAnimationEnd',function(){translate()});
-	$("button#mean").css("display","inline");
-	$("button#next").css("display","none");
-}
-function startRand(){
-	if(typeof(Storage)=="undefined"){alert("Sorry your Browser doesn't support this :(\nUpgrade your web browser version and try again!")};
-	$("div#hasil,div#panel").css("display","inline-block");
-	$("div#setting").css("display","none");
-	if($('input#eng').is(':checked')){localStorage.lang = "english";}else{localStorage.lang = "indo"}
-	if($('input#capital').is(':checked')){localStorage.capital = "true";}else{localStorage.capital = "false"}
-	if($('input#timer').is(':checked')){
-		$('#footing').after('<br id="progressBr"/><div id="myProgress"><div id="myBar"></div></div>'); localStorage.timer = "true";
-	} else{localStorage.timer = "false";}
-	next();
-}
-function end(){
-	$("div#hasil").css("display","none");
-	$("div#setting").css("display","block");
-}
-function translate(){
-	var num = $("#test").html();
-	$("div#panel").html("<p>"+toTitleCase(nd(coray[num-1]))+":</p>"+toTitleCase(st(coray[num-1])));
-	$("div#myProgress").remove();
-	$("#progressBr,button#mean").css("display","none");
-	$("button#next").css("display","inline");
-}
-function toTitleCase(str) {
-	if($('input#capital').is(':checked')){
-    	return str.replace(/\w\S*/g, function(txt){
-        	return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-   		});
-   	}
-   	else{return str;}
-}
-
-$(document).ready(function(){
-    $(document).on("click","button#start", function () { startRand() });
-    $(document).on("click","button#mean", function () { translate() });
-    $(document).on("click","button#next", function () { next() });
-    $(document).on("click","button#end", function () { end() });
-    shortcut.add("Space",function(){
-    	if($('#panel p').length >= 1){
-    		next();
-    	} else {
-    		translate();
-    	}
-    }, {'type':'keydown','propagate':true,'target':document});
- });
-
-var eng = document.getElementById("eng");
-var indo = document.getElementById("indo");
-if(localStorage.lang.includes("english")){eng.setAttribute("checked","checked");indo.removeAttribute("checked");
-} else {indo.setAttribute("checked","checked");eng.removeAttribute("checked");}
-if(localStorage.capital.includes("false")){document.getElementById("capital").removeAttribute("checked");}
-if(localStorage.timer.includes("false")){document.getElementById("timer").removeAttribute("checked");}
-</script>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Memorez</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" >
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="bg-light">
+	<div id="navbar" class="d-flex py-4 px-5 mb-5 border-bottom bg-white shadow-sm">
+		<h5 class="mb-0 mr-auto"><a href="index.html">Memorez</a></h5>
+		<nav>
+			<span><a href="index.html">Dashboard</a></span>
+			<span><a href="edit.html">Edit</a></span>
+			<span><a href="https://github.com/dafiulh/memorez" target="_blank">Github</a></span>
+		</nav>
+	</div>
+	<div id="content" class="container">
+		<form class="text-center">
+			<h5 class="mb-3">Bahasa Awal</h5>
+			<div class="form-check">
+				<span class="mr-2">
+					<input type="radio" name="firstWord" id="word-id" value="id" checked>
+					<label for="word-id">Indonesia</label>
+				</span>
+				<span>
+					<input type="radio" name="firstWord" id="word-en" value="en">
+					<label for="word-en">Inggris</label>	
+				</span>
+			</div>
+			<hr>
+			<div class="form-check">
+			  	<input type="checkbox" id="capital">
+			  	<label for="capital">Huruf Kapital</label>
+			</div>
+			<div class="form-check">
+				<input type="checkbox" id="time">
+				<label for="time">Gunakan Waktu</label>
+			</div>
+			<hr>
+			<button type="submit" class="btn btn-secondary" disabled>Mulai</button>
+		</form>
+	</div>
+	<script src="js/page/dashboard.js"></script>
+</body>
+</html>

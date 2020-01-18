@@ -1,12 +1,4 @@
-body{font-family: sans-serif;}
-a{color:#000;text-decoration: none;}
-a:hover{text-decoration:none;}
-button{cursor: pointer;}
-table{font-family: arial, sans-serif;border-collapse: collapse;max-width: 600px;}
-td,th{border: 1px solid #dddddd;text-align: left;padding: 8px;}
-input,span#add-column,button#remove-row{padding: 8px;border:1px solid #dddddd;background-color: #fff;}
-span#add-column:hover,button#remove-row:hover{cursor:pointer;background-color: #f5f5f5}
-#mantapjiwa>div input{margin:3px;}
+<style>
 #panel{background-color: #ddd;padding:70px;display: none;font-size: 50px;color: #333;border: 3px solid #999;text-align: center;}
 #text,button#submit,#hasil,#test{display: none;}
 #myProgress{width: 100%;background-color: #ddd;}
@@ -14,4 +6,15 @@ span#add-column:hover,button#remove-row:hover{cursor:pointer;background-color: #
 @keyframes abc{from{width: 100%;}to{width: 0%;}}
 #panel p{text-align: center;margin:0 0 12px;font-size: 20px;}
 #end{float: right}
-.text-center{text-align: center;}
+</style>
+
+<div id="hasil">
+    <br/>
+    <p id="test"></p>
+    <div id="panel"></div>
+    <br id="footing"/>
+    <br/>
+    <button id="mean">Arti</button>
+    <button id="next">Selanjutnya</button>
+    <button id="end">Selesai</button>
+</div>

@@ -1,136 +1,38 @@
-<link rel="stylesheet" type="text/css" href="style.css">
-<script src="jquery-3.3.1.min.js"></script>
-<script src="shortcut.js"></script>
-
-<button><a href="index.html">Kembali ke halaman utama</a></button>
-<br/><br/>
-<div id="mantapjiwa">
-	<div><input type="text" class="indo" placeholder="Indonesia"><input type="text" class="english" placeholder="English"></div>
-</div>
-<br/>
-<button id="add-column">Tambah Kolom</button>&nbsp;&nbsp;<button id="remove-column">Hapus Kolom</button>&nbsp;&nbsp;<button id="send">Kirim</button>
-<p>Tips: TAB untuk ganti field | ALT+A untuk menambah Kolom | ALT+R untuk menghapus Kolom</p>
-<p id="result"></p>
-<table id="table">
-	<thead><tr><th>No</th><th>Indonesia</th><th>English</th><th>Remove</th></tr></thead>
-	<tbody>
-  	</tbody>
-</table>
-<br/>
-<button id="refresh">Refresh</button>&nbsp;&nbsp;<button id="remove-all">Hapus Semua</button>&nbsp;&nbsp;<button id="export">Expor</button>&nbsp;&nbsp;<button id="import">Impor</button>
-<p id="resultan"></p>
-<textarea id="text" rows="10" cols="60"></textarea>
-<br/>
-<button id='submit'>Submit</button>
-
-<script type="text/javascript">
-function getData(){
-	if(localStorage.data === undefined || (!(localStorage.data.includes("&")) && localStorage.data.includes("undefined"))){return "";}
-	else if(localStorage.data.includes("&") && localStorage.data.includes("undefined")){return localStorage.getItem("data").replace("undefined","");}
-	else if(localStorage.data.includes("&") && !(localStorage.data.includes("undefined"))){return localStorage.data;}
-	else{return "";}
-}
-$("button#add-column").click(function(){
-	$("#mantapjiwa").append('<div><input type="text" class="indo" placeholder="Indonesia"><input type="text" class="english" placeholder="English"></div>');
-});
-shortcut.add("Alt+A",function(){
-	$("#mantapjiwa").append('<div><input type="text" class="indo" placeholder="Indonesia"><input type="text" class="english" placeholder="English"></div>');
-},{'type':'keydown','propagate':true,'target':document}
-);
-$("button#remove-column").click(function(){
-	if(document.querySelectorAll("#mantapjiwa>div").length > 1){
-		$("#mantapjiwa>div:last-of-type").remove();
-	}
-});
-shortcut.add("Alt+R",function(){
-	if(document.querySelectorAll("#mantapjiwa>div").length > 1){
-		$("#mantapjiwa>div:last-of-type").remove();
-	}
-},{'type':'keydown','propagate':true,'target':document}
-);
-$("button#send").click(function(){
-	var check = confirm("Apakah data yang akan dikirimkan sudah benar?\nTolong cek ulang jika terdapat kesalahan.");
-    if (check == true) {
-		var inputIndo = document.querySelectorAll("#mantapjiwa input.indo");
-		var inputEng = document.querySelectorAll("#mantapjiwa input.english");
-		var result = "";
-		if(getData() != ""){
-			result+="|";
-		}
-		result += inputIndo[0].value+"&"+inputEng[0].value;
-		for(var i=1;i<inputIndo.length;i++){
-			result+="|"+inputIndo[i].value+"&"+inputEng[i].value;
-		}
-		$("p#result").html("Terkirim, refresh halaman untuk melihat data di tabel.");
-		localStorage.data = getData()+result;
-	} else {
-		$("p#result").html("Pengiriman data dibatalkan.");
-	}
-});
-$("button#refresh").click(function(){
-   location.reload();
-});
-$("button#remove-all").click(function(){
-    var check = confirm("Apakah kamu yakin ingin menghapus semua data?\nData yang sudah dihapus tidak dapat dikembalikan.");
-    if (check == true) {
-        if(getData() != ""){
-			$("p#resultan").html("Data terhapus, silahkan refresh halaman.");
-			localStorage.removeItem("data");
-		} else {
-			$("p#resultan").html("Tidak ada data.");
-		}
-    } else {
-        $("p#resultan").html("Penghapusan data dibatalkan.");
-    }
-});
-$("button#exorim").click(function(){
-	$("p#resultan").html("Fitur Expor & Impor masih dalam tahap pengembangan, mohon pengertiannya.");
-});
-function st(str){return str.split('&')[0];}
-function nd(str){return str.split('&')[1];}
-var coray = getData().split("|");
-if(getData() != ""){
-	for(var m=0;m<coray.length;m++){
-		$("table#table tbody").append("<tr data-row='"+m+"'><td>"+(m+1)+"</td><td>"+st(coray[m])+"</td><td>"+nd(coray[m])+"</td><td class='text-center'><button class='remove-row'>X</button></td></tr>");
-	}
-} else {
-	$("table#table tbody").append("<tr><td colspan='4'>Data belum tersedia, silahkan isi kolom atau impor file terlebih dahulu!</td></tr>");
-}
-$("table#table tbody button.remove-row").click(function(){
-	var apagan = parseInt(event.target.parentNode.parentNode.getAttribute("data-row"))+1;
-	var what = coray[event.target.parentNode.parentNode.getAttribute("data-row")];
-	if(!getData().startsWith(what)){what="|"+what;}else if(getData() == what){what=what;}else{what=what+"|";}
-	var replaced = getData().replace(what,"");
-	var check = confirm('Apakah kamu yakin ingin menghapus kolom \"'+(what.replace("|","")).replace("&","\" dengan \"")+'\" pada kolom nomor '+apagan+'?\nData yang sudah dihapus tidak dapat dikembalikan.');
-    if (check == true) {
-		localStorage.data = replaced;
-		$("p#resultan").html('Kolom \"'+(what.replace("|","")).replace("&","\" dengan \"")+'\" pada kolom nomor '+apagan+' berhasil dihapus, silahkan refresh halaman.');
-	} else {
-		$("p#resultan").html("Penghapusan dibatalkan.");
-	}
-});
-$("button#export").click(function(){
-	$("p#resultan").html("Simpan text dibawah.");
-	$("textarea#text").css("display","block");
-	$("button#submit").css("display","none");
-	$("textarea#text").val(getData());
-});
-$("button#import").click(function(){
-	$("p#resultan").html("Masukkan teks dibawah.");
-	$("textarea#text").css("display","block");
-	$("button#submit").css("display","block");
-	$("textarea#text").val("");
-});
-$("button#submit").click(function(){
-	if($("textarea#text").val().includes("&") && $("textarea#text").val().includes("|")){
-		$("p#resultan").html("Text berhasil di import, silahkan refresh halaman.");
-		if(getData() != ""){
-			localStorage.data = localStorage.data+"|"+$("textarea#text").val();
-		} else {
-			localStorage.data = $("textarea#text").val();
-		}
-	} else {
-		$("p#resultan").html("Format text salah!");
-	}
-});
-</script>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Memorez</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" >
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="bg-light">
+	<div id="navbar" class="d-flex py-4 px-5 mb-5 border-bottom bg-white shadow-sm">
+		<h5 class="mb-0 mr-auto"><a href="index.html">Memorez</a></h5>
+		<nav>
+			<span><a href="index.html">Dashboard</a></span>
+			<span><a href="edit.html">Edit</a></span>
+			<span><a href="https://github.com/dafiulh/memorez" target="_blank">Github</a></span>
+		</nav>
+	</div>
+	<div id="content" class="container">
+		<table id="pairList" class="table mb-4">
+			<thead>
+				<tr>
+					<th>Indonesia</th>
+					<th>English</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+		<div class="mb-4">
+			<button type="button" id="toggleAdd" class="btn btn-secondary mr-2">Tambah</button>
+			<button type="button" id="toggleExport" class="btn btn-secondary mr-2" disabled>Export</button>
+			<button type="button" id="toggleImport" class="btn btn-secondary" disabled>Import</button>	
+		</div>
+	</div>
+	<script src="js/page/edit.js"></script>
+</body>
+</html>

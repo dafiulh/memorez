@@ -1,1 +1,1 @@
-# card-memorization
+# Memorez
