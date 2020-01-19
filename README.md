@@ -1,5 +1,6 @@
 # Memorez
 Fitur utama sudah selesai di program
+
 Beberapa fitur lainnya yang akan ditambahkan pada commit yang akan datang diantaranya:
 
 - Export/Import data
