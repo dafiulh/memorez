@@ -5,3 +5,5 @@ a:hover{text-decoration:none}
 #navbar nav span{margin-left:.75rem}
 table tbody tr td.remove{text-align:right;cursor:pointer;width:1%}
 table tbody tr td.remove img{width:1em;height:1em}
+#settings .form-check{padding:0}
+#settings .form-check #time{max-width:4rem}

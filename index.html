@@ -17,29 +17,31 @@
 		</nav>
 	</div>
 	<div id="content" class="container">
-		<form class="text-center">
-			<h5 class="mb-3">Bahasa Awal</h5>
-			<div class="form-check">
+		<form id="settings" class="text-center">
+			<div class="form-check mb-4">
+				<h5 class="mb-3">Bahasa Awal</h5>
 				<span class="mr-2">
-					<input type="radio" name="firstWord" id="word-id" value="id" checked>
-					<label for="word-id">Indonesia</label>
+					<input type="radio" name="firstWord" id="wordId" value="id" checked>
+					<label for="wordId">Indonesia</label>
 				</span>
 				<span>
-					<input type="radio" name="firstWord" id="word-en" value="en">
-					<label for="word-en">Inggris</label>	
+					<input type="radio" name="firstWord" id="wordEn" value="en">
+					<label for="wordEn">Inggris</label>	
 				</span>
 			</div>
-			<hr>
 			<div class="form-check">
-			  	<input type="checkbox" id="capital">
-			  	<label for="capital">Huruf Kapital</label>
+				<h5 class="mb-3">Hitung Mundur</h5>
+				<div>
+					<input type="checkbox" id="useTime">
+					<label for="useTime" class="mb-3">Gunakan Waktu</label>
+				</div>
+				<div class="">
+					<input type="number" class="form-control d-inline" id="time" min="1" max="20" value="3" required>
+					<label class="ml-2">detik</label>	
+				</div>
 			</div>
-			<div class="form-check">
-				<input type="checkbox" id="time">
-				<label for="time">Gunakan Waktu</label>
-			</div>
-			<hr>
-			<button type="submit" class="btn btn-secondary" disabled>Mulai</button>
+			<hr class="my-4">
+			<button type="submit" name="submit" class="btn btn-secondary">Mulai</button>
 		</form>
 	</div>
 	<script src="js/page/dashboard.js"></script>

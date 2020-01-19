@@ -45,8 +45,8 @@ document.getElementById("toggleAdd").addEventListener("click", function () {
             <form id="add" class="mt-4">
                 <hr>
                 <h5 class="mb-3">Tambah Pasangan</h5>
-                <input type="text" class="form-control mb-2" name="addId" placeholder="Indonesia">
-                <input type="text" class="form-control" name="addEn" placeholder="English">
+                <input type="text" class="form-control mb-2" name="addId" placeholder="Indonesia" required>
+                <input type="text" class="form-control" name="addEn" placeholder="English" required>
                 <button type="submit" name="addSubmit" class="btn btn-secondary btn-sm mt-3">Tambahkan</button>
             </form>
         `)
@@ -56,16 +56,6 @@ document.getElementById("toggleAdd").addEventListener("click", function () {
 
             let addId = this.elements.addId
             let addEn = this.elements.addEn
-
-            if(addId.value === "") {
-                addId.focus()
-                return
-            }
-
-            if(addEn.value === "") {
-                addEn.focus()
-                return
-            }
             
             data[randomId()] = [addId.value, addEn.value]
             localStorage.pairData = JSON.stringify(data)
@@ -78,6 +68,14 @@ document.getElementById("toggleAdd").addEventListener("click", function () {
         addEl.parentNode.removeChild(addEl)
     }
 })
+
+// document.getElementById("toggleExport").addEventListener("click", function () {
+
+// })
+
+// document.getElementById("toggleImport").addEventListener("click", function () {
+
+// })
 
 document.addEventListener("click", function(evt) {
     let bubbles = evt.path.slice(0, -3)
