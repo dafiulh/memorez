@@ -1,8 +1,5 @@
 # Memorez
-Fitur utama sudah selesai di program
-
-Beberapa fitur lainnya yang akan ditambahkan pada commit yang akan datang diantaranya:
-
+Beberapa fitur yang akan ditambahkan kedepannya:
 - Export/Import data
 - Memungkinkan repeat kartu untuk diulangi lagi
 - Memungkinkan menggunakan bahasa inggris pada awalannya
