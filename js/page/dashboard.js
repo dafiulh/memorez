@@ -1,11 +1,9 @@
-let data = JSON.parse(localStorage.getItem("pairData"))
-data = data === null ? {} : data
 let el = document.getElementById("settings").elements
 
-if (Object.keys(data).length === 0) {
+if (Object.keys(JSON.parse(localStorage.getItem("pairData")) || {}).length === 0) {
     el.submit.disabled = true
     el.submit.insertAdjacentHTML("afterend", `
-        <small class="text-muted d-block mt-3">Tambahkan pasangan data di halaman edit sebelum memulai</small>
+        <small class="text-muted d-block mt-3">Tambahkan kartu di halaman edit sebelum memulai</small>
     `)
 }
 
@@ -14,7 +12,7 @@ let useTime = typeof defset.useTime === "boolean" ? defset.useTime : true
 el.firstWord.value = defset.firstWord || "id"
 el.useTime.checked = useTime
 if (useTime) el.time.disabled = false
-el.time.value = defset.time || 3
+el.time.value = defset.time || 5
 
 function checkTime () {
     el.time.disabled = !el.useTime.checked ? true : false
@@ -31,5 +29,5 @@ settings.addEventListener("submit", function (evt) {
     sbt.useTime = form.useTime.checked
     sbt.time = +form.time.value
     localStorage.settings = JSON.stringify(sbt)
-    // window.location = "start.html"
+    window.location = "start.html"
 })

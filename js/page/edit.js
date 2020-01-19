@@ -18,8 +18,8 @@ function loadData() {
         for (let key in data) {
             elem += `
                 <tr data-key="${key}">
-                    <td>${data[key][0]}</td>
-                    <td>${data[key][1]}</td>
+                    <td>${data[key].id}</td>
+                    <td>${data[key].en}</td>
                     <td class="remove"><img src="icon/delete.svg"></td>
                 </tr>
             `
@@ -30,7 +30,7 @@ function loadData() {
         table.style.display = "none"
 
         let el = document.createElement("DIV")
-        el.appendChild(document.createTextNode("Belum ada pasangan yang ditambahkan"))
+        el.appendChild(document.createTextNode("Belum ada kartu yang ditambahkan"))
         el.classList.add("mb-4")
         ctn.insertBefore(el, table)
     }
@@ -44,7 +44,7 @@ document.getElementById("toggleAdd").addEventListener("click", function () {
         ctn.insertAdjacentHTML("beforeend", `
             <form id="add" class="mt-4">
                 <hr>
-                <h5 class="mb-3">Tambah Pasangan</h5>
+                <h5 class="mb-3">Tambah Kartu</h5>
                 <input type="text" class="form-control mb-2" name="addId" placeholder="Indonesia" required>
                 <input type="text" class="form-control" name="addEn" placeholder="English" required>
                 <button type="submit" name="addSubmit" class="btn btn-secondary btn-sm mt-3">Tambahkan</button>
@@ -57,7 +57,7 @@ document.getElementById("toggleAdd").addEventListener("click", function () {
             let addId = this.elements.addId
             let addEn = this.elements.addEn
             
-            data[randomId()] = [addId.value, addEn.value]
+            data[randomId()] = {id: addId.value, en: addEn.value}
             localStorage.pairData = JSON.stringify(data)
             loadData()
 
