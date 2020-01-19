@@ -24,6 +24,11 @@ let i = 0
 progress.firstElementChild.style.transitionDuration = settings.time + "s"
 
 function question () {
+    if(!actions.classList.contains("d-none")) actions.classList.add("d-none")
+    if(progress.classList.contains("d-none")) progress.classList.remove("d-none")
+
+    if(!progress.firstElementChild.classList.contains("full")) progress.firstElementChild.classList.add("full")
+
     text.textContent = data[shuffledKeys[i]].id
     lang.textContent = settings.firstWord
     setTimeout(() => progress.firstElementChild.classList.remove("full"))
@@ -38,8 +43,19 @@ function answer (iter) {
     actions.classList.remove("d-none")
     progress.classList.add("d-none")
 
+    if (shuffledKeys.length == iter + 1) {
+        actions.innerHTML = `
+            <div class="col-12">
+                <button type="button" class="btn btn-success rounded" onclick="location.reload()">Mulai Ulang</button>
+            </div>
+        `
+    }
+
     text.textContent = data[shuffledKeys[iter]].en
     lang.textContent = settings.firstWord == "en" ? "id" : "en"
 }
+
+// actions.querySelector(".repeat").addEventListener("click", )
+actions.querySelector(".next").addEventListener("click", question)
 
 question()

@@ -19,13 +19,16 @@
 	<div id="content" class="wrapper mx-auto">
         <div class="row card mb-4 pointer">
             <h3 id="pair" class="text-center text-muted m-0"></h3>
-            <span id="lang" class="p-2 bg-info text-white"></span>
+            <span id="lang" class="p-2 bg-secondary text-white"></span>
         </div>
         <div class="row what">
             <div id="actions" class="d-none">
-                <div class="col-2"><button type="button" class="btn btn-danger"><img src="icon/done.svg"></button></div>
-                <div class="col-5"><button type="button" class="btn btn-primary"><img src="icon/repeat.svg"></button></div>
-                <div class="col-5"><button type="button" class="btn btn-success"><img src="icon/next.svg"></button></div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-info repeat" disabled><img src="icon/repeat.svg"></button>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-success next"><img src="icon/next.svg"></button>
+                </div>
             </div>
             <div id="progress" class="progress">
                 <div class="progress-bar full"></div>
