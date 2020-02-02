@@ -8,7 +8,7 @@ if (Object.keys(JSON.parse(localStorage.getItem("pairData")) || {}).length === 0
 }
 
 let defset = JSON.parse(localStorage.getItem("settings")) || {}
-let useTime = typeof defset.useTime === "boolean" ? defset.useTime : true
+let useTime = true // let useTime = typeof defset.useTime === "boolean" ? defset.useTime : true
 el.firstWord.value = defset.firstWord || "id"
 el.useTime.checked = useTime
 if (useTime) el.time.disabled = false
