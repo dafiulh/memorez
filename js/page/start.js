@@ -21,6 +21,9 @@ let progress = document.getElementById("progress")
 let shuffledKeys = shuffle(Object.keys(data))
 let i = 0
 
+let stWord = settings.firstWord
+let ndWord = settings.firstWord === "en" ? "id" : "en"
+
 progress.firstElementChild.style.transitionDuration = settings.time + "s"
 
 function question () {
@@ -29,10 +32,11 @@ function question () {
 
     if(!progress.firstElementChild.classList.contains("full")) progress.firstElementChild.classList.add("full")
 
-    text.textContent = data[shuffledKeys[i]].id
-    lang.textContent = settings.firstWord
+    text.textContent = data[shuffledKeys[i]][stWord]
+    lang.textContent = stWord
+    
     setTimeout(() => progress.firstElementChild.classList.remove("full"))
-
+    
     setTimeout(() => {
         answer(i)
         i++
@@ -51,8 +55,8 @@ function answer (iter) {
         `
     }
 
-    text.textContent = data[shuffledKeys[iter]].en
-    lang.textContent = settings.firstWord == "en" ? "id" : "en"
+    text.textContent = data[shuffledKeys[iter]][ndWord]
+    lang.textContent = ndWord
 }
 
 // actions.querySelector(".repeat").addEventListener("click", )
