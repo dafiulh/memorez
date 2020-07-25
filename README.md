@@ -1,4 +1,5 @@
 # Memorez
+**Masih dalam pengembangan**
 
 ## Todo
 
